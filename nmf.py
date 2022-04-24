@@ -46,15 +46,18 @@ def initialize(X, k, method='gaussian'):
         A = np.random.poisson(1.0, m * k).reshape(m, k)
         S = np.random.poisson(1.0, k * N).reshape(k, N)
 
-    elif method == 'kmeans':
-        A, S = kmeans(X, k)
+    elif method == 'kmeans_opH':
+        A, S = kmeans(X, k, 'op_H')
+
+    elif method == 'kmeans_randH':
+        A, S = kmeans(X, k, 'rand_H')
 
     elif method == 'nndsvd':
         A, S = NNDSVD(X, k)
 
     return A, S
 
-def kmeans(X, k, version='op_H'):
+def kmeans(X, k, version):
     
     # centroids shape = (10, 220)
     centroids = KMeans(n_clusters=k).fit(X.T).cluster_centers_
