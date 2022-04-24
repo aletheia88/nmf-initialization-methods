@@ -34,8 +34,9 @@ def get_nmf_loss_stats(eval_iters, X, k, nmf_iters, method):
 def get_nmf_iters_stats(X, k, target_loss, method):
 
     nmf_iters = []
+    max_iter = 100
 
-    for i in tqdm(range(100)):
+    for i in tqdm(range(max_iter)):
 
         nmf_iters.append(get_nmf_iters_given_target_loss(X, k, target_loss,
                                                                 method))
@@ -48,7 +49,7 @@ def get_nmf_iters_given_target_loss(X, k, target_loss, method):
 
     while nmf_loss > target_loss:
         
-        if nmf_iters > 1000: break
+        if nmf_iters > 100: break
 
         _, _, nmf_loss = multiplicative_update(X, k, nmf_iters, method)
 
@@ -58,18 +59,21 @@ def get_nmf_iters_given_target_loss(X, k, target_loss, method):
     return nmf_iters
 
 def main():
+    
     X = loadmat('Swimmer.mat')['X'].astype(float)
     k = 10
-    eval_iters = 100
-    nmf_iters = 100
+    eval_iters = 10
+    nmf_iters = 10
     target_loss = 0.5
-    '''
-    methods = ['gaussian', 'uniform', 'laplacian', 
-                'poisson', 'kmeans', 'nndsvd']
-    '''
-    methods = ['kmeans', 'nndsvd'] 
-    results = {}
+
+    methods = ['gaussian', 'uniform', 'laplacian', 'kmeans_opH', 'kmeans_randH']
     
+    #methods = ['kmeans', 'nndsvd'] 
+    #methods = ['poisson']
+    
+    f = open('evaluation_results.json')
+    results_dict = json.load(f)
+ 
     for method in methods:
         
         _, mean_nmf_loss, median_nmf_loss = get_nmf_loss_stats(eval_iters, X, k, 
@@ -77,17 +81,19 @@ def main():
         
         _, mean_nmf_iter, median_nmf_iter = get_nmf_iters_stats(X, k, 
                                                         target_loss, method)
-        results[method] = {
-                        'mean_nmf_loss':mean_nmf_loss,
-                        'median_nmf_loss':median_nmf_loss,
-                        'mean_nmf_iter':mean_nmf_iter,
-                        'median_nmf_iter':median_nmf_iter 
+        
+        results_dict[method] = {
+                        'mean_nmf_loss' : mean_nmf_loss,
+                        'median_nmf_loss' : median_nmf_loss,
+                        'mean_nmf_iter' : mean_nmf_iter,
+                        'median_nmf_iter' : median_nmf_iter 
                         }
 
-        print(f'{method}\n{results[method]}')
-        
-    f = open('evaluation_results.json')
-    json.dump(results, f, indent=2)
+    print(f'{method}\n{results_dict[method]}')
+    f.close()
+
+    ff = open('evaluation_results.json', 'w')
+    json.dump(results_dict, ff, indent=2)
 
 if __name__ == "__main__":
 
