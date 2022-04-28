@@ -1,0 +1,51 @@
+{
+  "nndsvd": {
+    "mean_nmf_loss": 0.8207937070369773,
+    "median_nmf_loss": 0.8246766276966332,
+    "mean_nmf_iter": 101.0,
+    "median_nmf_iter": 101.0,
+    "initial_loss": 1491.448946094002
+  },
+  "poisson": {
+    "mean_nmf_loss": 0.9168512826170641,
+    "median_nmf_loss": 0.9161564757618192,
+    "mean_nmf_iter": 101.0,
+    "median_nmf_iter": 101.0,
+    "initial_loss": 2601.1397369892243
+  },
+  "gaussian": {
+    "mean_nmf_loss": 1.3704421449298219,
+    "median_nmf_loss": 0.8656797692692642,
+    "mean_nmf_iter": 4.06,
+    "median_nmf_iter": 4.0,
+    "initial_loss": 3372093522.2857842
+  },
+  "uniform": {
+    "mean_nmf_loss": 0.9408420746953997,
+    "median_nmf_loss": 0.9409052973200629,
+    "mean_nmf_iter": 60.99,
+    "median_nmf_iter": 61.0,
+    "initial_loss": 2337.6000786539616
+  },
+  "laplacian": {
+    "mean_nmf_loss": 6.293014550244678,
+    "median_nmf_loss": 0.2915264313183996,
+    "mean_nmf_iter": 3.93,
+    "median_nmf_iter": 3.0,
+    "initial_loss": 84592906949.07695
+  },
+  "kmeans_opH": {
+    "mean_nmf_loss": 108.07608662893593,
+    "median_nmf_loss": 10.81489456837324,
+    "mean_nmf_iter": 8.24,
+    "median_nmf_iter": 6.0,
+    "initial_loss": 4560664289.616446
+  },
+  "kmeans_randH": {
+    "mean_nmf_loss": 4.088617855194213,
+    "median_nmf_loss": 1.2462351296239416,
+    "mean_nmf_iter": 3.92,
+    "median_nmf_iter": 3.0,
+    "initial_loss": 1515778829.0662537
+  }
+}
